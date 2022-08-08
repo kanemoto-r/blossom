@@ -1,0 +1,839 @@
+// settings.scss 読み込み () は必要ない
+@import '_settings';
+@import 'responsive';
+
+// ----------------------------
+// 全体構造 共通
+// ----------------------------
+
+body {
+    font-family: "Noto Serif JP", "Playfair Display", "Helvetica Neue", Arial, " Hiragino Kaku Gothic ProN", " Hiragino Sans", Meiryo, sans-serif;
+    color: #333;
+    background-color: #ffffff;
+    font-size: $font-medium15;
+}
+
+a {
+    color: #333;
+}
+
+.scroll {
+    // slide画像が90vh scrollは10vh 合計100vhでファーストビューになる
+    height: 10vh;
+    position: relative;
+    text-align: center;
+
+    p {
+        margin-top: 10px;
+        font-size: $font-small;
+    }
+
+    .item {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        opacity: 0;
+        // 変化にかかる時間 ease-in 何秒から開始 最初ゆっくりで後半に減速  alternate 順方向→逆方向の順で再生する forwards アニメーションの終了後には最後のキーフレームのスタイルを適用する  running 再生  fadeIn 自分でkeyframeで指定する名前
+        animation: 1.5s ease-in 0.5s infinite alternate forwards running fadeIn;
+    }
+
+    .is-1 {
+        top: 20px;
+        left: 50%;
+        background: $color-main;
+        animation-delay: 0.1s;
+    }
+
+    .is-2 {
+        top: 30px;
+        left: 50%;
+        background: $color-main;
+        animation-delay: 0.5s;
+    }
+
+    .is-3 {
+        top: 40px;
+        left: 50%;
+        background: $color-main;
+        animation-delay: 0.9s;
+    }
+
+    // アニメーションの流れに沿ったキーフレーム（中間地点）のスタイルを定義する
+    @keyframes fadeIn {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 0.5;
+        }
+    }
+}
+
+h1.home-h1 {
+    display: inline-block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    // main と重なった時にも上に表示されるように
+    z-index: 5;
+}
+
+// ----------------------------
+// ハンバーガーメニュー
+// ----------------------------
+// ハンバーガーメニュー MENUが☓に
+.humburger {
+
+    .openbtn {
+        position: fixed;
+        z-index: 9999;
+        /*ボタンを最前面に*/
+        top: 20px;
+        right: 20px;
+        width: 70px;
+        height: 70px;
+        cursor: pointer;
+        border-radius: 5px;
+        color: #360000;
+    }
+
+    /*ボタン内側*/
+    .openbtn span {
+        display: inline-block;
+        transition: all .4s;
+        /*アニメーションの設定*/
+        position: absolute;
+    }
+
+    // menuの文字の上下のボーダーライン
+    .openbtn span:nth-of-type(1),
+    .openbtn span:nth-of-type(3) {
+        height: 2px;
+        background: $color-main;
+        width: 62%;
+        left: 10px;
+    }
+
+    // ボーダーライン上
+    .openbtn span:nth-of-type(1) {
+        top: 12px;
+    }
+
+    // menuの文字
+    .openbtn span:nth-of-type(2) {
+        top: 19px;
+        left: 11px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: $color-main;
+    }
+
+    // ボーダーライン下
+    .openbtn span:nth-of-type(3) {
+        top: 38px;
+    }
+
+    /*activeクラスが付与されると線が回転して×になり、Menu表記をしている2つ目の要素が透過して消える*/
+    .openbtn.active span:nth-of-type(1) {
+        top: 18px;
+        left: 18px;
+        transform: translateY(6px) rotate(-45deg);
+        width: 30%;
+    }
+
+    .openbtn.active span:nth-of-type(2) {
+        opacity: 0;
+    }
+
+    .openbtn.active span:nth-of-type(3) {
+        top: 30px;
+        left: 18px;
+        transform: translateY(-6px) rotate(45deg);
+        width: 30%;
+    }
+
+    // ハンバーガーメニュー内ナビゲーションのためのCSS
+    #g-nav {
+        /* 追加 */
+        background-image: url(../images/humburger-bg.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        @include row-center();
+        border: 10px solid #fff;
+        /*position:fixed;にし、z-indexの数値を小さくして最背面へ*/
+        position: fixed;
+        opacity: 0;
+        /*はじめは透過0*/
+        /*ナビの位置と形状*/
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        /*動き*/
+        transition: all 0.3s;
+        // マウスが乗ってもクリックできないようにする
+        pointer-events: none;
+
+    }
+
+    /*アクティブクラスがついたら透過なしにして最前面へ*/
+    #g-nav.panelactive {
+        opacity: 1;
+        z-index: 999;
+        // メニューボタンがクリックされてハンバーガーメニューの内容が表示された時にはクリックできるようにする
+        pointer-events: all;
+    }
+
+    /* 追加 */
+    #g-nav .inner {
+        width: 800px;
+        margin: 0 auto;
+        @include row-space();
+    }
+
+    #g-nav h1.humburger-h1 {
+        margin-bottom: 300px;
+    }
+
+    #g-nav h1 a {
+        display: block;
+    }
+
+    /*アクティブクラスがついたら位置を0に*/
+    #g-nav.panelactive {
+        top: 0;
+    }
+
+    #g-nav.panelactive #g-nav-list {
+        /* 追加 */
+        @include column-space();
+        text-align: left;
+    }
+
+    /*リストのレイアウト設定*/
+    #g-nav li {
+        /* 追加 */
+        font-size: $font-medium30;
+        margin-bottom: 50px;
+    }
+
+    #g-nav li a {
+        letter-spacing: 0.1em;
+    }
+
+    #g-nav address {
+        font-size: $font-medium15;
+        line-height: 1.8;
+        margin-bottom: 50px;
+    }
+
+    /* sns */
+    #g-nav i {
+        font-size: $font-medium30;
+        margin-right: 30px;
+    }
+
+}
+
+
+// ----------------------------
+// ホームヘッダー
+// ----------------------------
+#home {
+    header {
+
+        // スライドショーのボーダーを消す
+        .bx-wrapper {
+            box-shadow: none;
+            border: none;
+            left: 0;
+            background-color: transparent;
+            margin: 0 auto;
+        }
+
+        .bx-wrapper img {
+            height: 90vh;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .sns {
+            height: 150px;
+            // follow botder icon を縦並びに
+            @include column-space();
+            // 画面左に絶対配置
+            position: fixed;
+            top: 390px;
+            left: 5px;
+            // main と重なった時にも上に表示されるように
+            z-index: 5;
+
+            p {
+                color: $color-main;
+                font-size: $font-small;
+                // follow 90度傾けて縦にする 絶対配置
+                transform: rotate(90deg);
+                // ボーダーとの間
+                padding-right: 40px;
+            }
+
+            span {
+                color: $color-main;
+                content: "";
+                height: 1px;
+                width: 40px;
+                border-top: 1px solid #333;
+                // 90度傾けて縦にする
+                transform: rotate(90deg);
+            }
+
+            i {
+                color: $color-main;
+
+            }
+        }
+    }
+}
+
+// ----------------------------
+// メニュー アバウト 共通ヘッダー
+// ----------------------------
+#menu header,
+#about header {
+    height: 50vh;
+
+    h2 {
+        font-size: $font-large120;
+        text-align: center;
+        // 縦方向中央
+        line-height: 50vh;
+    }
+
+    .sns {
+        height: 100px;
+        // follow botder icon を縦並びに
+        @include column-space();
+        // 画面左に絶対配置
+        position: fixed;
+        top: 200px;
+        left: 5px;
+        // main と重なった時にも上に表示されるように
+        z-index: 5;
+
+        p {
+            color: $color-main;
+            font-size: $font-small;
+            // follow 90度傾けて縦にする 絶対配置
+            transform: rotate(90deg);
+            display: inline-block;
+        }
+
+        i {
+            color: $color-main;
+
+        }
+    }
+}
+
+// ----------------------------
+// フッター
+// ----------------------------
+footer {
+    width: 1000px;
+    height: 440px;
+    margin: 0 auto;
+
+    .back-top {
+        position: fixed;
+        bottom: 3%;
+        right: 1%;
+        display: none;
+        // 追加
+        text-align: center;
+        font-size: $font-medium15;
+        color: #360000;
+
+        i {
+            // fontawesomeを細く見せるためのcss
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-color: #fff;
+            -webkit-text-stroke-width: 2px;
+        }
+
+        i {
+            color: $color-main;
+            font-size: $font-medium40;
+            padding-bottom: 8px;
+        }
+    }
+
+    ul {
+        height: 190px;
+        @include column-space();
+        // liを左寄せにする
+        align-items: flex-start;
+        margin-bottom: 140px;
+    }
+
+    li {
+        color: $color-main;
+        font-size: $font-medium20;
+    }
+
+    .logo {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .copyright {
+        color: $color-main;
+        text-align: right;
+        font-size: $font-small;
+        padding-bottom: 200px;
+        margin-right: 30px;
+    }
+
+}
+
+// ----------------------------
+// ホーム
+// ----------------------------
+#home main {
+    .inner {
+        width: 1000px;
+        margin: auto;
+    }
+
+    .flex-image-left {
+        // 横並び 間にスペース
+        @include row-space();
+    }
+
+    .flex-image-right {
+        // 横並び 間にスペース row-reverseで右に画像を配置
+        @include row-reverse();
+    }
+
+    .flex-image-left-catch {
+        // 横並び 間スペースなし
+        @include row-center();
+        // 画像とテキストを重ねるため
+        position: relative;
+    }
+
+    h2 {
+        font-size: $font-large120;
+        margin-bottom: 70px;
+    }
+
+    h3 {
+        font-size: $font-medium30;
+        margin-bottom: 30px;
+    }
+
+    p {
+        // mainのp全て
+        font-size: $font-medium18;
+        line-height: 2;
+    }
+
+    .section-text {
+        width: 470px;
+
+        p {
+            margin-bottom: 30px;
+        }
+    }
+
+    .button {
+        p {
+            // ボタンの枠
+            border: 2px solid #333;
+            border-radius: 39px;
+            width: 240px;
+            font-size: $font-medium15;
+            text-align: center;
+        }
+
+        a {
+            // ボタン全体をクリックできるように
+            display: block;
+            padding: 22px 0;
+        }
+
+        i {
+            // 矢印と文字との間隔を開ける
+            padding-right: 20px;
+        }
+    }
+
+    .catch {
+        // 他のsectionより中央よりにするため
+        padding: 0 30px;
+
+        .catch-text {
+            width: 480px;
+            // 親要素の.flex-image-left-catchにposition relativeをかけている
+            position: absolute;
+            top: 250px;
+            right: -10px;
+            text-align: center;
+        }
+
+        .catch-image {
+            position: absolute;
+            top: 0;
+            left: -25px;
+        }
+    }
+
+    .tea {
+        // .catctとの間を開けるため
+        padding-top: 250px;
+        // .catchと重ならないようにするため
+        margin-top: 550px;
+        margin-bottom: 200px;
+
+        img {
+            // 画像位置調整 少し上に上げる
+            margin-top: -200px;
+        }
+    }
+
+    .scones {
+        margin-bottom: 200px;
+
+        h2 {
+            text-align: right;
+        }
+
+        img {
+            // 画像位置調整 少し上に上げる
+            margin-top: -200px;
+        }
+    }
+
+    .about {
+        margin-bottom: 200px;
+
+        img {
+            // 画像位置調整 少し上に上げる
+            margin-top: -100px;
+        }
+    }
+
+    .access {
+        margin-bottom: 300px;
+
+        h2 {
+            text-align: right;
+        }
+
+        h3 {
+            // 日本語のh3と比べて文字が小さいため
+            font-size: $font-medium40;
+            margin-bottom: 30px;
+        }
+
+        address {
+            font-size: $font-medium15;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        // responsive の時に住所を改行させる
+        .br-responsive {
+            display: none;
+        }
+
+        iframe {
+            margin-bottom: 110px;
+        }
+    }
+}
+
+
+// ----------------------------
+// メニュー
+// ----------------------------
+#menu main {
+    // scrollとの間
+    margin-top: 100px;
+    // footerとの間
+    margin-bottom: 300px;
+
+    .list-min {
+        @include row-center();
+        margin: 0 auto;
+
+        div {
+            width: 110px;
+            height: 110px;
+            @include row-center();
+        }
+
+        .list-min1 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #CD776A;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+
+        .list-min2 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #F4C681;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+
+        .list-min3 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #7E924A;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+
+        .list-min4 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #ECB939;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+
+        }
+
+        .list-min5 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #846F62;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+
+        }
+
+        .list-min6 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #A65A62;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+
+        .list-min7 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #875781;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+
+        .list-min8 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #A1B4AD;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+
+        }
+
+        .list-min9 {
+            position: relative;
+
+            &::after {
+                @include transition();
+                background-color: #B16484;
+            }
+
+            &:hover::after {
+                height: 100%;
+            }
+        }
+    }
+
+    .list {
+        color: #ffffff;
+
+        h3 {
+            font-size: $font-medium45;
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: $font-medium20;
+            line-height: 2;
+            width: 50%;
+        }
+
+        div {
+            @include column-center();
+            height: 95vh;
+
+            img {
+                margin-bottom: 40px;
+            }
+        }
+
+        .list1 {
+            background-image: url(../images/menu-bg1.png);
+            @include no-repeat-cover();
+        }
+
+        .list2 {
+            background-image: url(../images/menu-bg2.png);
+            @include no-repeat-cover();
+        }
+
+        .list3 {
+            background-image: url(../images/menu-bg3.png);
+            @include no-repeat-cover();
+        }
+
+        .list4 {
+            background-image: url(../images/menu-bg4.png);
+            @include no-repeat-cover();
+        }
+
+        .list5 {
+            background-image: url(../images/menu-bg5.png);
+            @include no-repeat-cover();
+        }
+
+        .list6 {
+            background-image: url(../images/menu-bg6.png);
+            @include no-repeat-cover();
+        }
+
+        .list7 {
+            background-image: url(../images/menu-bg7.png);
+            @include no-repeat-cover();
+        }
+
+        .list8 {
+            background-image: url(../images/menu-bg8.png);
+            @include no-repeat-cover();
+        }
+
+        .list9 {
+            background-image: url(../images/menu-bg9.png);
+            @include no-repeat-cover();
+        }
+    }
+}
+
+// ----------------------------
+// アバウト
+// ----------------------------
+#about main {
+    // scrollとの間
+    margin-top: 100px;
+    // footerとの間
+    margin-bottom: 300px;
+
+    section {
+        width: 80%;
+        height: 90vh;
+    }
+
+    .about-img {
+        width: 50%;
+        height: 90vh;
+    }
+
+    img {
+        object-fit: cover;
+        // width height がないと cover が効かない
+        width: 100%;
+        height: 100%;
+    }
+
+    .text {
+        width: 50%;
+        padding: 0 3%;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: $font-medium25;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #333;
+        margin-bottom: 30px;
+        // ボーダー線を文字の下だけにするため
+        display: inline-block;
+    }
+
+    p {
+        font-size: $font-medium18;
+        line-height: 1.5;
+        // テキスト両橋揃え
+        text-align: justify;
+    }
+
+    .right {
+        width: 100%;
+        @include row-center();
+        // コンテンツを右に寄せる
+        justify-content: flex-end;
+    }
+
+    .greetings {
+        @include row-center();
+        background-color: #F8EEE7;
+    }
+
+    .tea {
+        @include row-reverse();
+        align-items: center;
+        background-color: #F4E7D8;
+    }
+
+    .scone {
+        @include row-center();
+        background-color: #F4DECB;
+    }
+}

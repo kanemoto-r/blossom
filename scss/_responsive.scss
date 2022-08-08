@@ -1,0 +1,312 @@
+@media screen and (max-width:895px) {
+    #about div.page main {
+        h3 {
+            font-size: $font-medium20;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: $font-medium15;
+        }
+    }
+}
+
+
+// スマホ576px以下の場合
+@media screen and (max-width:576px) {
+    // ----------------------------
+    // ハンバーガーメニュー
+    // ----------------------------
+
+    #g-nav .inner {
+        // ハンバーガーメニューコンテンツ幅
+        width: 80%;
+        @include column-center();
+    }
+
+    #g-nav h1 {
+        // ハンバーガーメニューロゴ比表示
+        display: none;
+    }
+
+
+
+    // ----------------------------
+    // ヘッダー
+    // ----------------------------
+    #home header,
+    #menu header,
+    #about header {
+        h1.home-h1 {
+            display: inline-block;
+            position: absolute;
+            top: 5;
+            left: 0;
+        }
+
+        div.sns {
+            display: none;
+            padding: 5% 3%;
+        }
+    }
+
+    #menu .page header,
+    #about .page header {
+        h1 {
+            width: 15vh;
+            height: auto;
+        }
+
+        h2 {
+            font-size: $font-large80;
+        }
+    }
+
+
+    // ----------------------------
+    // ホーム メイン
+    // ----------------------------
+    #home div.page main {
+        #inner {
+            width: 90%;
+
+            iframe {
+                width: 100%;
+                height: auto;
+            }
+
+            .flex-image-left {
+                display: block;
+            }
+
+            .flex-image-right {
+                display: block
+            }
+
+            .flex-image-left-catch {
+                display: block;
+                position: static;
+            }
+
+            h2 {
+                font-size: $font-large80;
+                margin-bottom: 50px;
+            }
+
+            h3 {
+                font-size: $font-medium25;
+                margin-bottom: 15px;
+            }
+
+            p {
+                font-size: $font-medium16;
+                line-height: 1.8;
+            }
+
+            .section-image {
+                text-align: center;
+            }
+
+            .section-image img {
+                width: auto;
+                height: 40vh;
+                object-fit: contain;
+            }
+
+            .section-text {
+                width: auto;
+            }
+
+            .button {
+                p {
+                    width: 50%;
+                }
+            }
+
+            .catch {
+                // 他のsectionより中央よりにするため
+                padding: 0;
+                margin-bottom: 200px;
+
+                .catch-text {
+                    width: auto;
+                    // 親要素の.flex-image-left-catchにposition relativeをかけている
+                    position: static;
+                    text-align: justify;
+                }
+
+                .catch-image {
+                    position: static;
+                }
+            }
+
+            .tea {
+                // .catctとの間を開けるため
+                padding-top: 0px;
+                // .catchと重ならないようにするため
+                margin-top: 0px;
+
+
+                img {
+                    // 画像位置調整 少し上に上げる
+                    margin-top: 0;
+                }
+            }
+
+            .scones {
+                h2 {
+                    text-align: justify;
+                }
+
+                img {
+                    // 画像位置調整 少し上に上げる
+                    margin-top: 0px;
+                }
+            }
+
+            .about {
+
+                img {
+                    // 画像位置調整 少し上に上げる
+                    margin-top: 0px;
+                }
+            }
+
+            .access {
+                margin-bottom: 300px;
+
+                h2 {
+                    text-align: left;
+                }
+
+                h3 {
+                    // 日本語のh3と比べて文字が小さいため
+                    font-size: $font-medium30;
+                }
+
+                address {
+                    line-height: 1.8;
+                }
+
+                iframe {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    // ----------------------------
+    // メニュー メイン
+    // ----------------------------
+    #menu div.page main {
+
+        // セレクタのポイントで負けないようにdivも付けた
+        div.list-min {
+            display: none;
+        }
+
+        .list {
+            h3 {
+                font-size: $font-medium30;
+                margin-bottom: 30px;
+                width: 85%;
+                text-align: center;
+            }
+
+            p {
+                font-size: $font-medium16;
+                line-height: 1.8;
+                width: 85%;
+            }
+
+            img {
+                width: 50%;
+                height: auto;
+            }
+
+
+        }
+    }
+
+    // ----------------------------
+    // アバウト メイン
+    // ----------------------------
+    #about div.page main {
+        div.about-img {
+            width: 100%;
+            height: 40vh;
+        }
+
+        #section {
+            width: 100%;
+            height: auto;
+            margin: 0 auto 100px;
+        }
+
+
+        .greetings div.text,
+        .tea div.text,
+        .scone div.text {
+            width: 85%;
+            height: auto;
+            padding: 5% 3% 15%;
+            @include column-center();
+            justify-content: flex-start;
+            text-align: center;
+        }
+
+        div.right {
+            width: 100%;
+            display: block;
+            // コンテンツを右に寄せる
+            // justify-content: flex-end;
+        }
+
+        section.greetings {
+            @include column-center();
+            flex-direction: column-reverse;
+            background-color: #F8EEE7;
+        }
+
+        section.tea {
+            @include column-center();
+            flex-direction: column-reverse;
+            align-items: center;
+            background-color: #F4E7D8;
+        }
+
+        section.scone {
+            @include column-center();
+            flex-direction: column-reverse;
+            background-color: #F4DECB;
+        }
+
+
+    }
+
+    // ----------------------------
+    // フッター
+    // ----------------------------
+
+    #home footer,
+    #menu footer,
+    #about footer {
+        width: 80%;
+        height: 80vh;
+
+        .copyright {
+            padding-bottom: 100px;
+        }
+
+        .back-top {
+            font-size: $font-small;
+
+
+            i {
+                color: $color-main;
+                font-size: $font-medium30;
+            }
+        }
+
+    }
+}

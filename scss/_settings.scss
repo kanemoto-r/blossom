@@ -1,0 +1,64 @@
+// ----------------------------
+// 設定
+// ----------------------------
+
+$font-small: 12px;
+$font-medium15: 15px;
+$font-medium16: 16px;
+$font-medium18: 18px;
+$font-medium20: 20px;
+$font-medium25: 25px;
+$font-medium30: 30px;
+$font-medium40: 40px;
+$font-medium45: 45px;
+$font-large80: 80px;
+$font-large120: 120px;
+$color-main: #360000;
+
+@mixin row-space() {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin row-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin row-reverse() {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+@mixin column-space() {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin column-center() {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin transition() {
+    position: absolute;
+    width: 100%;
+    height: 0%;
+    bottom: 0;
+    left: 0;
+    transition: all 0.7s;
+    z-index: -1;
+    content: "";
+}
+
+@mixin no-repeat-cover() {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
