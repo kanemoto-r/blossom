@@ -13,7 +13,7 @@
 
 
 // スマホ576px以下の場合
-@media screen and (max-width:576px) {
+@media screen and (max-width:720px) {
     // ----------------------------
     // ハンバーガーメニュー
     // ----------------------------
@@ -69,6 +69,10 @@
     #home div.page main {
         #inner {
             width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
             iframe {
                 width: 100%;

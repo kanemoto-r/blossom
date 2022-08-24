@@ -342,7 +342,7 @@ h1.home-h1 {
 // フッター
 // ----------------------------
 footer {
-    width: 1000px;
+    max-width: 1000px;
     height: 440px;
     margin: 0 auto;
 
@@ -403,7 +403,7 @@ footer {
 // ----------------------------
 #home main {
     .inner {
-        width: 1000px;
+        max-width: 1000px;
         margin: auto;
     }
 
@@ -441,7 +441,7 @@ footer {
     }
 
     .section-text {
-        width: 470px;
+        max-width: 470px;
 
         p {
             margin-bottom: 30px;
@@ -475,7 +475,7 @@ footer {
         padding: 0 30px;
 
         .catch-text {
-            width: 480px;
+            max-width: 480px;
             // 親要素の.flex-image-left-catchにposition relativeをかけている
             position: absolute;
             top: 250px;
